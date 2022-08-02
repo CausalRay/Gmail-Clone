@@ -1,12 +1,20 @@
-import React from 'react';
-import './section.css'
+import React from "react";
+import "./section.css";
 
-const Section = () => {
-    return (
-        <div className='section'>
-            
-        </div>
-    );
-}
+const Section = ({Icon, title, color, selected}) => {
+  return (
+  <div 
+  className={`section ${selected && "section--selected"}`}
+    style={{
+    color: `${selected && color}`,
+    borderBottom: `3px solid ${color}`
+    }}
+    >
+
+    <Icon />
+    <h4>{title}</h4> 
+  </div>
+  )
+};
 
 export default Section;

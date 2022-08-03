@@ -23,3 +23,7 @@ overflow: scroll;
     background-color: white;
 }
 
+.emailList__list {
+    padding-bottom: 20px;
+}
+

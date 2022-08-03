@@ -7,8 +7,20 @@ import TuneIcon from "@mui/icons-material/Tune";
 import AppsIcon from "@mui/icons-material/Apps";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import SettingsIcon from "@mui/icons-material/Settings";
+import { useDispatch, useSelector } from "react-redux";
+import { logout, selectUser } from "../features/userSlice";
+import { auth } from "./firebase";
 
 const Header = () => {
+  const user = useSelector(selectUser)
+  const dispatch = useDispatch()
+
+  const signOut = () => {
+    auth.signOut().then(() => {
+      dispatch(logout())
+    })
+  }
+
   return (
     <div className="header">
       <div className="header__left">
@@ -40,7 +52,7 @@ const Header = () => {
           <AppsIcon className="icons"/>
         </IconButton>
 
-        <Avatar />
+        <Avatar onClick={signOut} src={user?.photoUrl}/>
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import React from "react";
 import "./sidebar.css";
 import AddIcon from "@mui/icons-material/Add";
 import InboxIcon from "@mui/icons-material/Inbox";
-import SidebarOption from "./SidebarOption";
+import SidebarOption from "../SidebarOption";
 import StarIcon from "@mui/icons-material/Star";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
@@ -14,7 +14,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import DuoIcon from "@mui/icons-material/Duo";
 import PhoneIcon from "@mui/icons-material/Phone";
 import { useDispatch } from 'react-redux';
-import { openSendMessage } from './features/mailSlice';
+import { openSendMessage } from '../features/mailSlice';
 
 
 function Sidebar() {

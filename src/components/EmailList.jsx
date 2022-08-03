@@ -7,14 +7,25 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import SettingsIcon from '@mui/icons-material/Settings';
-import Section from "./Section"
+import Section from "../Section"
 import InboxIcon from '@mui/icons-material/Inbox';
 import PeopleIcon from '@mui/icons-material/People';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import EmailRow from './EmailRow';
+import { useState, useEffect } from 'react';
+import {db} from  "./firebase";
 
 
 const Email = () => {
+    const [emails, setEmails] = useState([])
+    
+    useEffect(() => {
+        db.collection('emails').orderBy('timestamp','desc').onSnapshot(snapshot => setEmails(snapshot.docs.map(doc =>({
+            id: doc.id,
+            data: doc.data(),
+        }))))
+    }, [])
+
     return (
         <div className='email_list'>
             <div className="emailList__settings">
@@ -60,11 +71,17 @@ const Email = () => {
             </div>
 
             <div className="emailList__list">
-                <EmailRow 
-                title="Nanyang Technical University"
-                subject="Acceptance of course"
-                description="We are pleased to inform you that your appeal has been successful."
-                time="10:37AM" />
+            {emails.map(({id, data: {to, subject, message, timestamp }}) => (
+                    <EmailRow 
+                    id = {id}
+                    key = {id}
+                    title = {to}
+                    subject = {subject}
+                    description = {message}
+                    time = {new Date(timestamp?.seconds * 1000 ).toUTCString()}
+                />
+            ))}
+
             </div>
         </div>
     );
